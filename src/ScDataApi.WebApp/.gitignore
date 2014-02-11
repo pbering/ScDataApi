@@ -1,0 +1,29 @@
+# Sitecore Folders
+
+App_Browsers/
+App_Data/Sitecore/
+App_Config/*.config
+App_Config/Include/*.config
+App_Config/Include/*.example
+App_Config/Include/*.disabled
+App_Config/Prefetch/
+App_Config/Security/
+temp/
+sitecore/
+layouts/
+bin_Net4/
+sitecore_files/
+upload/
+xsl/
+default.*
+design.*
+Global.asax
+Web.config.Mvc
+Web.config.Oracl*
+webedit.css
+
+# Project
+
+!App_Config/ConnectionStrings.config
+!App_Config/Include/Development.config
+!App_Config/Include/ScDataApi.config
