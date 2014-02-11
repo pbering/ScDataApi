@@ -1,6 +1,6 @@
 ﻿namespace ScDataApi.Security
 {
-    public class WindowsAuthenticationUserService : IAuthenticationService
+    public class TestAuthenticationService : IAuthenticationService
     {
         public string GetUserName()
         {

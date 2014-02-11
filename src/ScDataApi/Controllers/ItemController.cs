@@ -2,21 +2,29 @@
 using System.Net.Http;
 using System.Web.Http;
 using ScDataApi.Configuration;
+using ScDataApi.Security;
 using ScDataApi.Storage;
 
 namespace ScDataApi.Controllers
 {
     public class ItemController : ApiController
     {
+        private readonly IAuthenticationService _authenticationService;
         private readonly DataService _data;
 
         public ItemController()
         {
-            _data = new DataService(ServiceLocator.GetAuthenticationService());
+            _authenticationService = ServiceLocator.GetAuthenticationService();
+            _data = new DataService(_authenticationService);
         }
 
         public HttpResponseMessage Get(string database, string language, string path, string payload, string fields = "")
         {
+            if (!_authenticationService.IsAuthenticated())
+            {
+                return Request.CreateResponse(HttpStatusCode.Unauthorized);
+            }
+
             if (!_data.ItemExists(database, path))
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
@@ -29,6 +37,11 @@ namespace ScDataApi.Controllers
 
         public HttpResponseMessage Post(string database, string language, string path, [FromBody] DataItem value)
         {
+            if (!_authenticationService.IsAuthenticated())
+            {
+                return Request.CreateResponse(HttpStatusCode.Unauthorized);
+            }
+
             if (!_data.ItemExists(database, path))
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
@@ -41,6 +54,11 @@ namespace ScDataApi.Controllers
 
         public HttpResponseMessage Put(string database, string language, string path, [FromBody] DataItem value)
         {
+            if (!_authenticationService.IsAuthenticated())
+            {
+                return Request.CreateResponse(HttpStatusCode.Unauthorized);
+            }
+
             if (!_data.ItemExists(database, path))
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
@@ -53,6 +71,11 @@ namespace ScDataApi.Controllers
 
         public HttpResponseMessage Delete(string database, string path)
         {
+            if (!_authenticationService.IsAuthenticated())
+            {
+                return Request.CreateResponse(HttpStatusCode.Unauthorized);
+            }
+
             if (!_data.ItemExists(database, path))
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);

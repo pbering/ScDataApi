@@ -53,6 +53,8 @@ namespace ScDataApi.Storage
 
         private Item GetItem(Database database, Language language, string path)
         {
+            // TODO: Check user has read access?
+
             using (new UserSwitcher(_authenticationService.GetUserName(), true))
             {
                 return database.GetItem(path, language);
