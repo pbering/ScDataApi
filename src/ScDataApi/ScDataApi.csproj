@@ -102,7 +102,7 @@
     <Compile Include="Storage\DataField.cs" />
     <Compile Include="Storage\DataItem.cs" />
     <Compile Include="Controllers\ItemController.cs" />
-    <Compile Include="Storage\DataService.cs" />
+    <Compile Include="Storage\SitecoreDataService.cs" />
     <Compile Include="Pipelines\AbortSitecoreOnApiRequest.cs" />
     <Compile Include="Pipelines\ConfigureWebApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -10,12 +10,12 @@ namespace ScDataApi.Controllers
     public class ItemController : ApiController
     {
         private readonly IAuthenticationService _authenticationService;
-        private readonly DataService _data;
+        private readonly SitecoreDataService _data;
 
         public ItemController()
         {
             _authenticationService = ServiceLocator.GetAuthenticationService();
-            _data = new DataService(_authenticationService);
+            _data = new SitecoreDataService(_authenticationService);
         }
 
         public HttpResponseMessage Get(string database, string language, string path, string payload, string fields = "")

@@ -8,11 +8,11 @@ using Sitecore.Security.Accounts;
 
 namespace ScDataApi.Storage
 {
-    public class DataService
+    public class SitecoreDataService
     {
         private readonly IAuthenticationService _authenticationService;
 
-        public DataService(IAuthenticationService authenticationService)
+        public SitecoreDataService(IAuthenticationService authenticationService)
         {
             _authenticationService = authenticationService;
         }
