@@ -11,9 +11,18 @@ namespace ScDataApi.Pipelines
         {
             var config = GlobalConfiguration.Configuration;
 
-            config.Routes.MapHttpRoute("DefaultApi", "api/data/v1/item", new
+            config.Routes.MapHttpRoute("DataApiItem", "api/data/v1/item", new
             {
                 controller = "item",
+                payload = "min",
+                language = "en",
+                database = "master",
+                fields = RouteParameter.Optional
+            });
+
+            config.Routes.MapHttpRoute("DataApiItems", "api/data/v1/items", new
+            {
+                controller = "items",
                 payload = "min",
                 language = "en",
                 database = "master",

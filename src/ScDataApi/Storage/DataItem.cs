@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Helpers;
 using Sitecore.Data.Fields;
@@ -11,68 +10,22 @@ namespace ScDataApi.Storage
     {
         private IEnumerable<DataField> _fields = Enumerable.Empty<DataField>();
 
-        public DataItem(Item item, string payload, string fields)
+        public DataItem(Item item, string fields)
         {
             var dataFields = new List<DataField>();
-
-            if (payload.Equals("min", StringComparison.OrdinalIgnoreCase))
-            {
-                dataFields.AddRange(GetMinimalFields(item));
-            }
-            else if (payload.Equals("full", StringComparison.OrdinalIgnoreCase))
-            {
-                dataFields.AddRange(GetMinimalFields(item));
-                dataFields.AddRange(GetAllFields(item));
-            }
-            else if (payload.Equals("custom", StringComparison.OrdinalIgnoreCase))
-            {
-                dataFields.AddRange(GetMinimalFields(item).Where(f => fields.IndexOf(f.Key, StringComparison.OrdinalIgnoreCase) > -1));
-            }
-            else
-            {
-                throw new ArgumentException("Please use either 'min', 'full' or 'custom'", "payload");
-            }
 
             dataFields.AddRange(GetSpecificFields(item, fields));
 
             _fields = dataFields.Distinct();
         }
 
-        public IEnumerable<DataField> Fields
+        public virtual IEnumerable<DataField> Fields
         {
             get { return _fields; }
             set { _fields = value; }
         }
 
-        private IEnumerable<DataField> GetMinimalFields(Item item)
-        {
-            if (item == null)
-            {
-                yield break;
-            }
-
-            yield return new DataField("__Id", item.ID.ToString());
-            yield return new DataField("__ParentId", item.ParentID.ToString());
-            yield return new DataField("__Key", item.Key);
-            yield return new DataField("__Path", item.Paths.FullPath.ToLowerInvariant());
-            yield return new DataField("__TemplateId", item.TemplateID.ToString());
-            yield return new DataField("__TemplateName", item.TemplateName);
-        }
-
-        private IEnumerable<DataField> GetAllFields(Item item)
-        {
-            if (item == null)
-            {
-                yield break;
-            }
-
-            foreach (var field in item.Fields.Where(f => !f.Key.StartsWith("__")))
-            {
-                yield return new DataField(field.Key.ToLowerInvariant(), GetFieldValue(field));
-            }
-        }
-
-        private IEnumerable<DataField> GetSpecificFields(Item item, string fields)
+        protected IEnumerable<DataField> GetSpecificFields(Item item, string fields)
         {
             if (item == null)
             {
@@ -95,7 +48,7 @@ namespace ScDataApi.Storage
             }
         }
 
-        private string GetFieldValue(Field field)
+        protected string GetFieldValue(Field field)
         {
             if (field == null)
             {

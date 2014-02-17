@@ -96,12 +96,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\ServiceLocator.cs" />
+    <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Security\IAuthenticationService.cs" />
     <Compile Include="Security\TestAuthenticationService.cs" />
     <Compile Include="Security\WindowsAuthenticationUserService.cs" />
     <Compile Include="Storage\DataField.cs" />
     <Compile Include="Storage\DataItem.cs" />
     <Compile Include="Controllers\ItemController.cs" />
+    <Compile Include="Storage\MinimalDataItem.cs" />
+    <Compile Include="Storage\FullDataItem.cs" />
     <Compile Include="Storage\SitecoreDataService.cs" />
     <Compile Include="Pipelines\AbortSitecoreOnApiRequest.cs" />
     <Compile Include="Pipelines\ConfigureWebApi.cs" />
