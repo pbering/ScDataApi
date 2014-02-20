@@ -43,7 +43,7 @@ namespace ScDataApi.Storage
 
                 if (field != null)
                 {
-                    yield return new DataField(field.Key, GetFieldValue(field));
+                    yield return new DataField(field.Key, field.ID.ToString(), GetFieldValue(field));
                 }
             }
         }

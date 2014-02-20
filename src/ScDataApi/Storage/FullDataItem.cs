@@ -33,7 +33,7 @@ namespace ScDataApi.Storage
 
             foreach (var field in item.Fields.Where(f => !f.Key.StartsWith("__")))
             {
-                yield return new DataField(field.Key.ToLowerInvariant(), GetFieldValue(field));
+                yield return new DataField(field.Key.ToLowerInvariant(), field.ID.ToString(), GetFieldValue(field));
             }
         }
     }

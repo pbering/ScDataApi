@@ -48,6 +48,7 @@ namespace ScDataApi.Storage
             var batches = query.Split(',').Select(q => q.Trim());
 
             // TODO: Validate query?...
+            // TODO: Could we just return hashtables?
 
             var dataItems = new List<DataItem>();
 
