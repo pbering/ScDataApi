@@ -20,15 +20,6 @@ namespace ScDataApi.Pipelines
                 fields = RouteParameter.Optional
             });
 
-            config.Routes.MapHttpRoute("DataApiItems", "api/data/v1/items", new
-            {
-                controller = "items",
-                payload = "min",
-                language = "en",
-                database = "master",
-                fields = RouteParameter.Optional
-            });
-
             config.Formatters.JsonFormatter.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
 
             var filters = GlobalFilters.Filters;

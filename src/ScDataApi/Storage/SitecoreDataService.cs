@@ -75,11 +75,32 @@ namespace ScDataApi.Storage
             {
                 foreach (var batchQuery in batches)
                 {
-                    var items = Query.SelectItems(batchQuery, database);
+                    var items = new List<Item>();
 
-                    if (items == null)
+                    if (batchQuery.Contains("{") && batchQuery.Contains("}"))
                     {
-                        continue;
+                        ID id;
+
+                        if (ID.TryParse(batchQuery, out id))
+                        {
+                            var item = database.Items.GetItem(id);
+
+                            if (item != null)
+                            {
+                                items.Add(item);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var results = Query.SelectItems(batchQuery, database);
+
+                        if (results == null)
+                        {
+                            continue;
+                        }
+
+                        items.AddRange(results);
                     }
 
                     foreach (var item in items)

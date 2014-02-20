@@ -22,9 +22,20 @@ function Get
     Write-Host "'$name'" -NoNewline -ForegroundColor Cyan
     Write-Host " using 'GET $url'" -ForegroundColor Gray
 
-    $raw = Invoke-WebRequest -Method Get -Uri "$uri"
+    $statusCode = 0
+    
+    try 
+    {
+        $raw = Invoke-WebRequest -Method Get -Uri "$uri" -MaximumRedirection 0
 
-    $statusCode = $raw.StatusCode
+        $statusCode = $raw.StatusCode        
+    }
+    catch [Net.WebException] 
+    {
+        $statusCode = $Error.Exception.Response.StatusCode.Value__
+
+        $Error.Clear()
+    }
 
     if($statusCode -eq $expectedStatusCode) {
         $json = $raw.Content | ConvertFrom-Json

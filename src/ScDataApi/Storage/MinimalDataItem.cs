@@ -13,6 +13,7 @@ namespace ScDataApi.Storage
             Key = item.Key;
             Path = item.Paths.FullPath;
             HasChildren = item.HasChildren;
+            DisplayName = item.DisplayName;
         }
 
         public bool HasChildren { get; set; }
@@ -28,5 +29,7 @@ namespace ScDataApi.Storage
         public string ParentId { get; set; }
 
         public string Id { get; set; }
+
+        public string DisplayName { get; set; }
     }
 }
